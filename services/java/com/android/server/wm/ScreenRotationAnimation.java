@@ -100,7 +100,7 @@ class ScreenRotationAnimation {
         try {
             try {
                 mSurface = new Surface(session, 0, "FreezeSurface",
-                        -1, mWidth, mHeight, PixelFormat.OPAQUE, isTegra ? 0 : (Surface.FX_SURFACE_SCREENSHOT | Surface.HIDDEN));
+                        -1, mWidth, mHeight, PixelFormat.OPAQUE, Surface.FX_SURFACE_NORMAL);
                 if (mSurface == null || !mSurface.isValid()) {
                     // Screenshot failed, punt.
                     mSurface = null;
@@ -118,7 +118,6 @@ class ScreenRotationAnimation {
 
             setRotation(originalRotation);
 
-            if (isTegra) {
                 Rect rect = new Rect(0, 0, mWidth, mHeight);
                 Canvas canvas = null;
 
@@ -144,7 +143,6 @@ class ScreenRotationAnimation {
                 canvas.drawBitmap(screenshot, 0, 0, paint);
                 mSurface.unlockCanvasAndPost(canvas);
 
-            }
 
         } finally {
             if (!inTransaction) {

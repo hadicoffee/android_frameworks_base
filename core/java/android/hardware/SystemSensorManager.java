@@ -231,8 +231,8 @@ public class SystemSensorManager extends SensorManager {
         void onSensorChangedLocked(Sensor sensor, float[] values, long[] timestamp, int accuracy) {
             SensorEvent t = sPool.getFromPool();
             final float[] v = t.values;
-            v[0] = values[0];
-            v[1] = values[1];
+            v[0] = -values[1];
+            v[1] = values[0];
             v[2] = values[2];
             t.timestamp = timestamp[0];
             t.accuracy = accuracy;

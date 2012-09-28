@@ -48,6 +48,7 @@ import android.util.AndroidException;
 import android.util.Log;
 import android.view.WindowOrientationListener;
 
+import com.android.internal.telephony.SMSDispatcher;
 import com.android.internal.widget.ILockSettings;
 
 import java.net.URISyntaxException;
@@ -2678,6 +2679,12 @@ public final class Settings {
         public static final String LOCKSCREEN_ALWAYS_SHOW_BATTERY = "lockscreen_always_show_battery";
 
         /**
+         * Where to align the clock on the lockscreen
+         * @hide
+         */
+        public static final String LOCKSCREEN_CLOCK_ALIGN = "lockscreen_clock_align";
+
+        /**
          * Show the pending notification counts as overlays on the status bar
          * @hide
          */
@@ -3435,6 +3442,13 @@ public final class Settings {
          * by network, gps, or other location providers.
          */
         public static final String ALLOW_MOCK_LOCATION = "mock_location";
+
+        /**
+         * Setting to allow the use of {@link SMSDispatcher#MockSmsReceiver} to simulate
+         * the reception of SMS for testing purposes during application development.
+         * @hide
+         */
+        public static final String ALLOW_MOCK_SMS = "mock_sms";
 
         /**
          * A 64-bit number (as a hex string) that is randomly
@@ -4960,6 +4974,36 @@ public final class Settings {
                 INCALL_POWER_BUTTON_BEHAVIOR_SCREEN_OFF;
 
         /**
+         * What happens when the user presses the Home button when the
+         * phone is ringing.<br/>
+         * <b>Values:</b><br/>
+         * 1 - Nothing happens. (Default behavior)<br/>
+         * 2 - The Home button answer the current call.<br/>
+         *
+         * @hide
+         */
+        public static final String RING_HOME_BUTTON_BEHAVIOR = "ring_home_button_behavior";
+
+        /**
+         * RING_HOME_BUTTON_BEHAVIOR value for "do nothing".
+         * @hide
+         */
+        public static final int RING_HOME_BUTTON_BEHAVIOR_DO_NOTHING = 0x1;
+
+        /**
+         * RING_HOME_BUTTON_BEHAVIOR value for "answer".
+         * @hide
+         */
+        public static final int RING_HOME_BUTTON_BEHAVIOR_ANSWER = 0x2;
+
+        /**
+         * RING_HOME_BUTTON_BEHAVIOR default value.
+         * @hide
+         */
+        public static final int RING_HOME_BUTTON_BEHAVIOR_DEFAULT =
+                RING_HOME_BUTTON_BEHAVIOR_DO_NOTHING;
+
+        /**
          * The current night mode that has been selected by the user.  Owned
          * and controlled by UiModeManagerService.  Constants are as per
          * UiModeManager.
@@ -5190,6 +5234,7 @@ public final class Settings {
         public static final String[] SETTINGS_TO_BACKUP = {
             ADB_ENABLED,
             ALLOW_MOCK_LOCATION,
+            ALLOW_MOCK_SMS,
             PARENTAL_CONTROL_ENABLED,
             PARENTAL_CONTROL_REDIRECT_URL,
             USB_MASS_STORAGE_ENABLED,
